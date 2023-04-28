@@ -52,8 +52,8 @@ public class OrderRepository {
     public Integer getOrdercountForPartner(String partnerId) {
         int count = 0;
 
-        if (partnerToOrder .containsValue(partnerId)) {
-            count = partnerToOrder .get(partnerId).size();
+        if (partnerToOrder .containsKey(partnerId)) {
+            count = partnerToOrder.get(partnerId).size();
         }
         return count;
     }
@@ -85,19 +85,23 @@ public class OrderRepository {
     }
 
     public Integer getCountLeftGivenTime(String time, String partnerId) {
-        int countOrder=0;
-        int total=Order.convertTime(partnerId);
+        int countOfOrder=0;
+      //  int total=Order.convertTime(partnerId);
+        int hour=Integer.valueOf(time.substring(0,2));
+        int minutes=Integer.valueOf(time.substring(3));
+        int total=hour*60+minutes;
+
         if(partnerToOrder .containsKey(partnerId)){
           HashSet<String> set = partnerToOrder .get(partnerId);
           for(String st:set){
               if(orderMap.containsKey(st)){
                   Order order =orderMap.get(st);
                   if(total<order.getDeliveryTime())
-                      countOrder++;
+                      countOfOrder++;
               }
           }
         }
-        return countOrder;
+        return countOfOrder;
     }
 
     public String getLastDeliveryTime(String partnerId) {

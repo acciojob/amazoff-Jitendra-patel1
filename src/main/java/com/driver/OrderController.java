@@ -117,7 +117,7 @@ public class OrderController {
         return new ResponseEntity<>(time, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete-partner-by-id/{partnerId}")
+    @DeleteMapping("/delete-partner-by-id/{partnerId}")                         //12
     public ResponseEntity<String> deletePartnerById(@PathVariable String partnerId){
        orderService.deletePartnerById(partnerId);
         //Delete the partnerId
@@ -126,7 +126,7 @@ public class OrderController {
         return new ResponseEntity<>(partnerId + " removed successfully", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete-order-by-id/{orderId}")
+    @DeleteMapping("/delete-order-by-id/{orderId}")                              //13
     public ResponseEntity<String> deleteOrderById(@PathVariable String orderId){
 
         //Delete an order and also
