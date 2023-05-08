@@ -1,48 +1,45 @@
 package com.driver;
 
-
-
-import java.util.Arrays;
-import java.util.List;
-
-
 public class Order {
 
     private String id;
     private int deliveryTime;
 
     public Order(String id, String deliveryTime) {
-      this.id=id;
-      this.deliveryTime=convertTime(deliveryTime);
+
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
+        this.id = id;
+        String[] dt = deliveryTime.split(":");
+        int delTime = Integer.parseInt(dt[0])*60 + Integer.parseInt(dt[1]) ;
+        this.deliveryTime = delTime;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getDeliveryTime() {return deliveryTime;}
-
-    public void setId(String id) {
-        this.id = id;
+    public int getDeliveryTime() {
+        return deliveryTime;
     }
 
-    public void setDeliveryTime(int deliveryTime) {
-        this.deliveryTime = deliveryTime;
+
+    public static int getDeliveryTimeAsInt(String timeString){
+        return (Integer.parseInt(timeString.substring(0,2)) * 60 )+
+                Integer.parseInt(timeString.substring(3) );
     }
 
-    public void setDeliveryTime(String deliveryTime){
-        this.deliveryTime=convertTime(deliveryTime);
+    public static String getDeliveryTimeAsString(int time){
+        int hrs = time/60;
+        int mins = time % 60;
+        String hrString = "";
+        String minString = "";
+        if(hrs < 10) hrString = "0" + hrs;
+        else hrString = "" + hrs;
+
+        if(mins < 10) minString = "0" + mins;
+        else minString = "" + mins;
+
+        return hrString + ":" + minString;
     }
-
-    public static  int convertTime(String deliveryTime){
-        List<String> list =Arrays.asList(deliveryTime.split(":")); //convert array to arraylist;
-        int HH=Integer.parseInt(list.get((0)));
-        int MM=Integer.parseInt(list.get(1));
-        return HH*60+MM;
-    }
-    //you also get delverytime as string because you give delivery time as string
-
-
 }
